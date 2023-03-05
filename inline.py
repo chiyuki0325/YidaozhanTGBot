@@ -10,6 +10,7 @@ from aiogram.utils import markdown as md
 from aiogram import Bot
 from hashlib import md5
 import re
+import aiohttp
 
 from base114514 import b114514decode, b114514encode
 from binascii import Error as BinasciiError
@@ -29,6 +30,19 @@ def fabing(dickman) -> str:
 
 def america_stone(america) -> str:
     return f"{america}不肯承认自己错误的做法，反而使用控制舆论等方式试图掩盖自己的行为。{america}这种卑劣行径，恰恰暴露了{america}做贼心虚的心理。{america}这种认不清自己情况，糊弄民众，透支未来的行为，到最后一定是搬起石头砸自己的脚！{america}的这种错误行为，只会在错误的道路上越走越远！"
+
+
+async def gengshuang(dickman, what_dickman_did) -> str:
+    async with aiohttp.request(
+            method='GET',
+            url=config.modules.gengshuang.api,
+            params={
+                'isnegative': 1,
+                'name': dickman,
+                'did': what_dickman_did
+            }
+    ) as response:
+        return await response.text()
 
 
 async def inline_handler(inline_query: InlineQuery, bot: Bot):
@@ -100,6 +114,36 @@ async def inline_handler(inline_query: InlineQuery, bot: Bot):
                 description=f'{input_text}这是搬起石头砸自己的脚！'
             )
         )
+
+        # 耿爽
+        gengshuang_result_id: str = md5((input_text + 'gengshuang').encode('utf-8')).hexdigest()
+        if '|' in input_text:
+            dickman, what_dickman_did = input_text.split('|')
+            dickman = dickman.strip()
+            what_dickman_did = what_dickman_did.strip()
+            try:
+                gengshuang_result = await gengshuang(dickman, what_dickman_did)
+            except Exception as e:
+                gengshuang_result = str(e)
+            results.append(
+                InlineQueryResultArticle(
+                    id=gengshuang_result_id,
+                    title='耿爽模拟器',
+                    input_message_content=InputTextMessageContent(
+                        md.escape_md('耿爽: ' + gengshuang_result)
+                    ),
+                    description=f'中方严厉谴责{dickman}的行为！'
+                )
+            )
+        else:
+            results.append(
+                InlineQueryResultArticle(
+                    id=gengshuang_result_id,
+                    title='耿爽模拟器: 帮助',
+                    input_message_content=InputTextMessageContent('喵呜 ...?'),
+                    description='人物|行为',
+                )
+            )
     else:
         results.append(
             InlineQueryResultArticle(

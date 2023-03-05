@@ -1,3 +1,8 @@
 bot:
   token: 'Y0UR_T0K3N_H3R3'
   debug: true
+modules:
+  smm2:
+    api: 'https://tgrcode.com/mm2/'
+  gengshuang:
+    api: 'https://api.zyglq.cn/gs.php'

@@ -8,7 +8,18 @@ class Config(BaseModel):
         token: str
         debug: bool
 
+    class Modules(BaseModel):
+        class SMM2(BaseModel):
+            api: str
+
+        class GengShuang(BaseModel):
+            api: str
+
+        smm2: SMM2
+        gengshuang: GengShuang
+
     bot: Bot
+    modules: Modules
 
 
 config_path: str = getenv('YIDAOZHAN_TGBOT_CONFIG_PATH', 'config.yml')

@@ -115,7 +115,7 @@ async def handler(message: types.Message):
     session = aiohttp.ClientSession()
     logging.info(f'arch: {pkgname}')
     if pkgname == '':
-        await error_message(message, 'arch', ['[包名或关键词]'])
+        await error_message(message, 'arch', ['<包名或关键词>'])
         await session.close()
         return
     msg = (  # 回复一条加载中的消息，稍后用于编辑

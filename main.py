@@ -3,6 +3,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from config import config
 from commands import (
     arch,
+    smm2_level
 )
 from inline import inline_handler
 
@@ -16,6 +17,15 @@ dp = Dispatcher(bot)
 async def arch_handler(message: types.Message):
     try:
         await arch.handler(message)
+    except Exception as e:
+        logging.error(e)
+        await message.reply('❌ 发生了未知错误: ' + str(e))
+
+
+@dp.message_handler(commands=['smm2_level'])
+async def smm2_level_handler(message: types.Message):
+    try:
+        await smm2_level.handler(message)
     except Exception as e:
         logging.error(e)
         await message.reply('❌ 发生了未知错误: ' + str(e))
