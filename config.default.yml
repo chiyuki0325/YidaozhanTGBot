@@ -6,3 +6,5 @@ modules:
     api: 'https://tgrcode.com/mm2/'
   gengshuang:
     api: 'https://api.zyglq.cn/gs.php'
+  dingzhen:
+    api: 'SELF HOST PLEASE https://github.com/Brx86/DingZhen'

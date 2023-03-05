@@ -7,9 +7,6 @@ from aiogram.utils import markdown as md
 import aiohttp
 import logging
 
-from pydantic import BaseModel
-from typing import Optional
-
 from common import error_message
 from config import config
 
@@ -52,6 +49,7 @@ async def handler(message: types.Message):
     if len(level_id) != 9:
         await error_message(message, 'smm2_level', ['<关卡ID>'])
         return
+    logging.info(f'smm2_level {level_id}')
     msg = await message.reply(
         '🔍 正在查询关卡 ' + md.code(level_id) + md.escape_md(' ...'),
         parse_mode='MarkdownV2'

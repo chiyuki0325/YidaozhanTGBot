@@ -3,7 +3,8 @@ from aiogram import Bot, Dispatcher, executor, types
 from config import config
 from commands import (
     arch,
-    smm2_level
+    smm2_level,
+    yiyan
 )
 from inline import inline_handler
 
@@ -26,6 +27,15 @@ async def arch_handler(message: types.Message):
 async def smm2_level_handler(message: types.Message):
     try:
         await smm2_level.handler(message)
+    except Exception as e:
+        logging.error(e)
+        await message.reply('❌ 发生了未知错误: ' + str(e))
+
+
+@dp.message_handler(commands=['yiyan'])
+async def yiyan_handler(message: types.Message):
+    try:
+        await yiyan.handler(message)
     except Exception as e:
         logging.error(e)
         await message.reply('❌ 发生了未知错误: ' + str(e))

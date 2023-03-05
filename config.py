@@ -15,8 +15,12 @@ class Config(BaseModel):
         class GengShuang(BaseModel):
             api: str
 
+        class DingZhen(BaseModel):
+            api: str
+
         smm2: SMM2
         gengshuang: GengShuang
+        dingzhen: DingZhen
 
     bot: Bot
     modules: Modules
