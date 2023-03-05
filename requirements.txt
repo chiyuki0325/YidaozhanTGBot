@@ -1,0 +1,6 @@
+aiogram
+base114514
+aiohttp
+pyyaml
+pydantic
+deepl-translate
